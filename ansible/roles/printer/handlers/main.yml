@@ -1,0 +1,5 @@
+---
+
+- name: restart printer_service
+  service: name=printer_service
+           state=restarted

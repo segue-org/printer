@@ -1,0 +1,3 @@
+app_path: /opt/printer/
+port: 7001
+mode: debug

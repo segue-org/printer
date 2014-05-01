@@ -1,0 +1,18 @@
+---
+
+- name: ensure we have usbutils installed
+  apt: pkg=usbutils
+
+- name: creates the printer service
+  tags: config
+  template: src=printer_service.j2
+            dest=/etc/init.d/printer_service
+            mode=0755
+  notify:
+    - restart printer_service
+
+- name: ensures realtime service is enabled
+  tags: realtime
+  service: name=printer_service
+           enabled=yes
+           state=started
