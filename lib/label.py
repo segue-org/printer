@@ -104,5 +104,5 @@ class Label:
     if len(lines) == 1:
       self.text(text, y, x, size=current)
     else:
-      self.text(lines[0], y, x - 7 * current, size = current)
-      self.text(lines[1], y, x + 7 * current, size = current)
+      self.text(lines[0], y, x - 5 * current, size = current)
+      self.text(lines[1], y, x + 5 * current, size = current)
