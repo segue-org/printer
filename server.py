@@ -7,11 +7,11 @@ from lib.envelope import Envelope
 from flask import Flask, jsonify, request, abort
 app = Flask(__name__)
 
-@app.route('/badge/', methods=['POST'])
+@app.route('/badge', methods=['POST'])
 def badge():
   return print_with(Badge)
 
-@app.route('/envelope/', methods=['POST'])
+@app.route('/envelope', methods=['POST'])
 def envelope():
   return print_with(Envelope)
 
