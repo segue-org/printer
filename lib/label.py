@@ -51,7 +51,7 @@ class Label:
     self.send_raw("D", value)
 
   def set_temperature(self, value=9):
-    self.send_raw("H", "%2d" % value)
+    self.send_raw("H", "%02d" % value)
 
   def set_print_speed(self, value='D'):
     self.send_raw("P", value)
@@ -98,7 +98,7 @@ class Label:
     self.send_raw(*command)
 
   def wrapped_and_adjusted_text(self, text, y, x, max_size=5, width=1):
-    limits = { 1: 30, 2: 21, 3: 19, 4: 17, 5: 15 }
+    limits = { 1: 30, 2: 21, 3: 18, 4: 14, 5: 11 }
     current = max_size;
 
     while current >= 1:
@@ -108,7 +108,9 @@ class Label:
         break
       current -= 1
 
-    if len(lines) == 1:
+    print [current, lines ]
+
+    if len(lines) <= 1:
       self.text(text, y, x, size=current)
     else:
       self.text(lines[0], y, x - 5 * current, size = current)
