@@ -61,7 +61,13 @@ class Label:
     self.send_raw("E");
     self.device.close();
 
-  def code(self, id, y, x, size = 10, height = 15, ori = 4, codetype = 'C'):
+  def code(self, id, y, x, source='self', size = 10, height = 15, ori = 4, codetype = 'C'):
+    PREFIXES = {
+        'greve':  1,
+        'papers': 2,
+        'front':  3,
+        'self':   9
+    };
     commands = [
       '%1d' % ori,
       '%1s' % codetype,
@@ -69,7 +75,8 @@ class Label:
       '%03d' % height,
       '%04d' % y,
       '%04d' % x,
-      '%06d' % id
+      '%01d' % PREFIXES[source],
+      '%05d' % id
     ]
     self.send_raw(*commands)
 

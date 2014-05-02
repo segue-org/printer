@@ -15,7 +15,7 @@ class Badge:
 
   def barcode(self, xid):
     prefix, number = xid.split('-')
-    self.label.code(int(number), 280, 200, ori=3, size=4, height=30)
+    self.label.code(int(number), 280, 200, source=prefix, ori=3, size=4, height=30)
 
   def xid(self, xid):
     prefix, number = xid.split('-')

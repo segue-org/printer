@@ -15,7 +15,7 @@ class Envelope:
 
   def barcode(self, xid):
     prefix, number = xid.split('-')
-    self.label.code(int(number), 280, 200, height=50, ori=3, size=15)
+    self.label.code(int(number), 280, 200, source=prefix, height=50, ori=3, size=15)
 
   def name(self, name):
     self.label.wrapped_and_adjusted_text(name, 10, 160, max_size=2, width=0.7)
