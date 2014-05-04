@@ -15,18 +15,26 @@ def badge():
 def envelope():
   return print_with(Envelope)
 
-def print_with(klass):
+@app.route('/both', methods=['POST'])
+def both():
+  return print_with(Badge, Envelope)
+
+def print_with(*klasses):
   try:
     xid     = request.form['xid']
     name    = request.form['name']
     company = request.form.get('company')
     city    = request.form.get('city')
 
-    klass(xid, name, company, city)
+    messages = [];
 
-    object_type = klass.__name__.split('.')[-1]
+    for klass in klasses:
+      klass(xid, name, company, city)
+      object_type = klass.__name__.split('.')[-1]
+      messages.append("{} has been printed".format(object_type));
 
-    return jsonify({ 'message' : "{} has been printed".format(object_type) })
+    return jsonify({ 'messages' : messages })
+
   except Exception, e:
     response = jsonify({ 'error': e.args, 'stack': traceback.format_exc() })
     response.status_code = 500

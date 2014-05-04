@@ -16,7 +16,6 @@ Vagrant.configure("2") do |config|
 
   config.vm.synced_folder '.', parms["app_path"]
   config.vm.network :private_network, ip: "192.168.33.70"
-  config.vm.network :forwarded_port, guest:   80, host: 7000
   config.vm.network :forwarded_port, guest: 7001, host: 7001
 
   config.vm.provision :ansible do |ansible|
