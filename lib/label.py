@@ -1,6 +1,7 @@
 import sys
 import textwrap
 from lib.remove_accents import remove_accents
+import config
 
 STX = chr(2);
 CR  = chr(13);
@@ -18,7 +19,7 @@ DEFAULTS = {
 
 
 class Label:
-  def __init__(self, device='/dev/usb/lp0'):
+  def __init__(self, device=config.device):
     self.device = open(device,'w');
 
     self.set_label_format()
