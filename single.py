@@ -12,8 +12,9 @@ class NoTickets(RangerException): pass
 class NoValidTickets(RangerException): pass
 
 class Process:
-  def __init__(self, id, printer, mode='both'):
+  def __init__(self, id, printer, mode='both', force=False):
     self.url = "{}/people/{}-{}".format(endpoint, source, id)
+    self.force = force
 
     self.locate_person(id)
     self.ensure_has_name()
@@ -51,12 +52,14 @@ class Process:
       raise NoName()
 
   def ensure_has_tickets(self):
+    if force: return
     self.statuses = [ t.get('status') for t in self.person['tickets'] ]
     print "tickets' statuses:", self.statuses
     if len(self.statuses) == 0:
       raise NoTickets()
 
   def ensure_has_valid_tickets(self):
+    if force: return
     def is_valid_status(status):
       return status in ('confirmed', 'paid', 'approved', 'accepted')
 
@@ -66,13 +69,15 @@ class Process:
 
 
 if __name__ == "__main__":
-  if len(sys.argv) < 5:
-    print "USAGE: python single.py <SOURCE> <MODE> <PRINTER> [id, [id, [ ... ]]]"
+  if len(sys.argv) < 6:
+    print "USAGE: python single.py <SOURCE> <MODE> <PRINTER> <FORCE> [id, [id, [ ... ]]]"
+    sys.exit(1)
 
   source  = sys.argv[1]
   mode    = sys.argv[2]
   printer = sys.argv[3]
-  items   = sys.argv[4:]
+  force   = bool(int(sys.argv[4]))
+  items   = sys.argv[5:]
   print sys.argv
 
   results = {'OK':0}
@@ -81,7 +86,7 @@ if __name__ == "__main__":
     try:
       print "-------------------"
       print "iniciando id", id
-      p = Process(id, printer, mode);
+      p = Process(id, printer, mode, force);
       results['OK'] += 1
     except RangerException, e:
       name = repr(e).split(".")[-1]

@@ -12,12 +12,12 @@ class NoTickets(RangerException): pass
 class NoValidTickets(RangerException): pass
 
 class Process:
-  def __init__(self, id, printer, mode='both'):
+  def __init__(self, id, printer, mode='both', force=False):
     self.url = "{}/people/{}-{}".format(endpoint, source, id)
+    self.force = force
 
     self.locate_person(id)
     self.ensure_has_name()
-    self.ensure_has_tickets()
     self.ensure_has_valid_tickets()
     if mode in ('badge','both'):
         self.print_badge(printer)
@@ -50,37 +50,29 @@ class Process:
     if len(self.name) == 0:
       raise NoName()
 
-  def ensure_has_tickets(self):
-    self.statuses = [ t.get('status') for t in self.person['tickets'] ]
-    print "tickets' statuses:", self.statuses
-    if len(self.statuses) == 0:
-      raise NoTickets()
-
   def ensure_has_valid_tickets(self):
-    def is_valid_status(status):
-      return status in ('confirmed', 'paid', 'approved', 'accepted')
+    if self.force: return
 
-    self.is_valid = any(map(is_valid_status, self.statuses))
-    if not self.is_valid:
+    if not self.person['validTickets']:
       raise NoValidTickets()
 
-
 if __name__ == "__main__":
-  if len(sys.argv) < 5:
-    print "USAGE: python ranger.py <SOURCE> <FIRST> <LAST> <PRINTER> [mode=both]"
+  if len(sys.argv) < 7:
+    print "USAGE: python ranger.py <SOURCE> <FIRST> <LAST> <PRINTER> <MODE> <FORCE>"
 
   source  = sys.argv[1];
   first   = int(sys.argv[2])
   last    = int(sys.argv[3])
   printer = int(sys.argv[4])
-  mode    = 'both' if len(sys.argv) < 5 else sys.argv[5]
+  mode    = sys.argv[5]
+  force   = bool(int(sys.argv[6]))
   results = { 'OK': 0 }
 
   for id in range(first, last+1):
     try:
       print "-------------------"
       print "iniciando id", id
-      p = Process(id, printer, mode);
+      p = Process(id, printer, mode, force);
       results['OK'] += 1
     except RangerException, e:
       name = repr(e).split(".")[-1]
