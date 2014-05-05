@@ -26,13 +26,24 @@ if __name__ == "__main__":
       print "*** exit";
       break;
     if line.strip() == u'repeat':
-      id, count, text = last;
+      id, count, text, name = last;
     else:
-      id, count, text = last = line.strip().split(",");
+      items = line.strip().split(',')
+      if len(items) == 3:
+        id, count, text, name = items + [None]
+      else:
+        id, count, text, name = items[:4]
+      last = id, count, text, name
+
 
     xid = "{}-{}".format(prefix, id)
     count = int(count)
 
     for i in range(0,count):
-      print "*** imprimindo copia 1"
-      Badge(xid, text, 'expositor', '')
+      if name:
+        print "*** imprimindo cracha com nome", name
+        Badge(xid, name, text, 'expositor')
+      else:
+        print "*** imprimindo copia", i
+        Badge(xid, text, 'expositor', '')
+
