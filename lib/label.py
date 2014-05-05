@@ -75,7 +75,7 @@ class Label:
       '%03d' % height,
       '%04d' % y,
       '%04d' % x,
-      '%01d' % PREFIXES[source],
+      '%01d' % PREFIXES.get(source,PREFIXES['self']),
       '%05d' % id
     ]
     self.send_raw(*commands)
