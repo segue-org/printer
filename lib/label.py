@@ -99,7 +99,7 @@ class Label:
     self.send_raw(*command)
 
   def wrapped_and_adjusted_text(self, text, y, x, max_size=5, width=1):
-    limits = { 1: 25, 2: 17, 3: 15, 4: 13, 5: 11 }
+    limits = { 1: 25, 2: 20, 3: 15, 4: 13, 5: 11 }
     current = max_size;
 
     while current >= 1:
