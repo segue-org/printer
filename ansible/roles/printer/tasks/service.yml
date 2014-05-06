@@ -1,5 +1,12 @@
 ---
 
+- name: Pull latest version from git repository
+  git: repo={{ git_repo }}
+       dest={{ app_path }}
+       version={{ git_branch }}
+       update=yes
+  tags: git
+
 - name: ensure we have usbutils installed
   apt: pkg=usbutils
 
@@ -11,8 +18,8 @@
   notify:
     - restart printer_service
 
-- name: ensures realtime service is enabled
-  tags: realtime
+- name: ensures printer service is enabled
+  tags: printer
   service: name=printer_service
            enabled=yes
-           state=started
+           state=restarted

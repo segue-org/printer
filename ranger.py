@@ -1,9 +1,13 @@
+# encoding: utf-8
+
 import sys
 import requests
 import codecs
 
 sys.stdout = codecs.open('/dev/stdout', 'w', 'utf8')
 endpoint = "http://192.168.33.20:2000"
+
+EXCLUDE_CATEGORIES = (u'Voluntarios',u'Serviços')
 
 class RangerException(BaseException): pass
 class PersonNotFound(RangerException): pass
@@ -49,6 +53,8 @@ class Process:
   def ensure_has_category(self, category):
     self.category = self.person['category']
     print u"category {}".format(self.category)
+    if self.category in EXCLUDE_CATEGORIES:
+      raise WrongCategory()
     if category == 'any': return
     if self.category == category: return
     raise WrongCategory()

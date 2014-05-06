@@ -1,0 +1,5 @@
+app_path: /opt/printer/
+port: 7001
+mode: debug
+git_repo: https://github.com/uems/printer.git
+git_branch: master

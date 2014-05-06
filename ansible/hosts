@@ -1,2 +1,11 @@
+[printers]
+pre-1   ansible_ssh_user=root ansible_ssh_host=10.5.0.15
+expo    ansible_ssh_user=root ansible_ssh_host=10.5.0.12
+pal-1   ansible_ssh_user=root ansible_ssh_host=10.5.0.39
+novos-1 ansible_ssh_user=root ansible_ssh_host=10.5.0.21
+novos-4 ansible_ssh_user=root ansible_ssh_host=10.5.0.24
+
+[secretaria]
+
 [vagrant]
 192.168.33.70 user=vagrant
