@@ -43,5 +43,5 @@ if __name__ == "__main__":
     xid = "{}-{}".format(prefix, current)
     current += 1
     print xid, name, text, small
-    # Badge(xid, name, text, small)
+    Badge(xid, name, text, small)
 
