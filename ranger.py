@@ -10,13 +10,15 @@ class PersonNotFound(RangerException): pass
 class NoName(RangerException): pass
 class NoTickets(RangerException): pass
 class NoValidTickets(RangerException): pass
+class WrongCategory(RangerException): pass
 
 class Process:
-  def __init__(self, id, printer, mode='both', force=False):
+  def __init__(self, id, printer, mode='both', category='any', force=False):
     self.url = "{}/people/{}-{}".format(endpoint, source, id)
     self.force = force
 
     self.locate_person(id)
+    self.ensure_has_category(category)
     self.ensure_has_name()
     self.ensure_has_valid_tickets()
     if mode in ('badge','both'):
@@ -44,6 +46,13 @@ class Process:
       raise PersonNotFound()
     self.person = response.json()
 
+  def ensure_has_category(self, category):
+    self.category = self.person['category']
+    print u"category {}".format(self.category)
+    if category == 'any': return
+    if self.category == category: return
+    raise WrongCategory()
+
   def ensure_has_name(self):
     self.name = self.person['name']
     print u"person name '{}'".format(self.name)
@@ -57,22 +66,23 @@ class Process:
       raise NoValidTickets()
 
 if __name__ == "__main__":
-  if len(sys.argv) < 7:
-    print "USAGE: python ranger.py <SOURCE> <FIRST> <LAST> <PRINTER> <MODE> <FORCE>"
+  if len(sys.argv) < 8:
+    print "USAGE: python ranger.py <SOURCE> <FIRST> <LAST> <PRINTER> <MODE> <CATEGORIA> <FORCE>"
 
   source  = sys.argv[1];
   first   = int(sys.argv[2])
   last    = int(sys.argv[3])
   printer = int(sys.argv[4])
   mode    = sys.argv[5]
-  force   = bool(int(sys.argv[6]))
+  category= sys.argv[6]
+  force   = bool(int(sys.argv[7]))
   results = { 'OK': 0 }
 
   for id in range(first, last+1):
     try:
       print "-------------------"
       print "iniciando id", id
-      p = Process(id, printer, mode, force);
+      p = Process(id, printer, mode, category, force);
       results['OK'] += 1
     except RangerException, e:
       name = repr(e).split(".")[-1]

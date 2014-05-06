@@ -7,10 +7,11 @@ sys.stdout = codecs.open('/dev/stdout', 'w', 'utf8')
 
 if __name__ == "__main__":
   if len(sys.argv) < 2:
-    print "USAGE: cat FILE | python expo.py <PREFIX>"
+    print "USAGE: cat FILE | python expo.py <PREFIX> <SMALLTEXT>"
     sys.exit(1);
 
   prefix = sys.argv[1];
+  small  = '' if len(sys.argv) == 2 else sys.argv[2]
 
   print 'AGUARDANDO ENTRADA...';
   while True:
@@ -22,17 +23,21 @@ if __name__ == "__main__":
     if line.startswith("#"):
       print "*** pulando " + line;
       continue;
-    if line.strip() == u"exit":
+    if line.strip() == "exit":
       print "*** exit";
       break;
-    if line.strip() == u'repeat':
+
+    line = line.decode('utf-8')
+    print line
+    if line.strip() == 'repeat':
       id, count, text, name = last;
     else:
-      items = line.strip().split(',')
+      items = line.strip().split('\t')
+      print items
       if len(items) == 3:
         id, count, text, name = items + [None]
       else:
-        id, count, text, name = items[:4]
+        id, count, text, name = items
       last = id, count, text, name
 
 
@@ -42,8 +47,8 @@ if __name__ == "__main__":
     for i in range(0,count):
       if name:
         print "*** imprimindo cracha com nome", name
-        Badge(xid, name, text, 'expositor')
+        Badge(xid, name, text, small)
       else:
         print "*** imprimindo copia", i
-        Badge(xid, text, 'expositor', '')
+        Badge(xid, text, small, '')
 
