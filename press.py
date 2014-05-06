@@ -5,7 +5,7 @@ from lib.badge import Badge
 
 sys.stdout = codecs.open('/dev/stdout', 'w', 'utf8')
 
-if __corp__ == "__main__":
+if __name__ == "__main__":
   if len(sys.argv) < 3:
     print "USAGE: cat FILE | python expo.py <PREFIX> <SMALLTEXT> <STARTON>"
     sys.exit(1);
@@ -18,7 +18,7 @@ if __corp__ == "__main__":
 
   print 'AGUARDANDO ENTRADA...';
   while True:
-    print "FORMATO: corp,corp<enter>";
+    print "FORMATO: name,corp<enter>";
     line = sys.stdin.readline()
     if len(line.strip()) == 0:
       print '*** empty, quitting'
