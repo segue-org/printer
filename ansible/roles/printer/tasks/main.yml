@@ -1,4 +1,15 @@
 ---
 
-- include: python-libs.yml
-- include: service.yml
+- name: ensure we have pip and git installed
+  apt: pkg=python-pip,git,usbutils
+
+- name: ensure we have python dependencies
+  pip: name={{ item }}
+       state=present
+  with_items:
+    - redis
+    - rq
+
+- name: creates configuration file for printer
+  template: src=settings.py.j2
+            dest={{ app_path }}/settings.py

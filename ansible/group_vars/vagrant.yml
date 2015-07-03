@@ -1,4 +1,6 @@
 ---
 
-app_path: /opt/printer/
-port: 7001
+redis_password: sshh
+app_path: /opt/printer
+queue_host: 192.168.33.91
+queue_password: sshh

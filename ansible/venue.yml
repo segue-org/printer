@@ -1,11 +1,11 @@
 ---
 
-- hosts: printers
+- hosts: venue
   sudo: True
   roles:
     - accelerate
 
-- hosts: printers
+- hosts: venue
   sudo: True
   accelerate: True
   roles:
