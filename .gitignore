@@ -2,3 +2,5 @@
 .vagrant
 *.pyc
 config.py
+ansible/secret
+settings.py
