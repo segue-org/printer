@@ -25,7 +25,4 @@ Vagrant.configure("2") do |config|
     ansible.sudo = true
     ansible.extra_vars = { ansible_ssh_user: 'vagrant' }
   end
-#  config.vm.provision :shell,
-#                      :path => 'install/vagrant_bootstrap.sh',
-#                      :args => [ parms["APP_PATH"] ]
 end
