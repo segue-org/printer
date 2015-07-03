@@ -5,8 +5,8 @@ CONFIG_FILE = 'ansible/group_vars/vagrant.yml'
 parms = YAML::load File.open(CONFIG_FILE)
 
 Vagrant.configure("2") do |config|
-  config.vm.box     = 'debian7'
-  config.vm.box_url = 'http://puppet-vagrant-boxes.puppetlabs.com/debian-70rc1-x64-vbox4210.box'
+  config.vm.box     = 'debian'
+  config.vm.box_url = 'http://static.gender-api.com/debian-8-jessie-rc2-x64-slim.box'
 
   config.vm.provider "virtualbox" do |v|
     v.customize ["modifyvm", :id, "--memory",  1024]
@@ -16,7 +16,6 @@ Vagrant.configure("2") do |config|
 
   config.vm.synced_folder '.', parms["app_path"]
   config.vm.network :private_network, ip: "192.168.33.70"
-  config.vm.network :forwarded_port, guest: 7001, host: 7001
 
   config.vm.provision :ansible do |ansible|
     ansible.playbook = 'ansible/vagrant.yml'
