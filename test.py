@@ -11,7 +11,10 @@ if __name__ == "__main__":
     'Santo Antonio de Porto Alegre'
   ]
 
-  device = sys.argv[2]
+  device = settings.DEVICE
+
+  if len(sys.argv) == 3:
+    device = sys.argv[2]
 
   if sys.argv[1] == 'badge':
     Badge(*data, device=device)
