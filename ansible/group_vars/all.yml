@@ -4,3 +4,6 @@ device: /dev/lp0
 git_repo: https://github.com/segue-org/printer.git
 git_branch: master
 app_path: /opt/printer
+
+thermal_mode: 0
+temperature: 13

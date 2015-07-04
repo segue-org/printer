@@ -24,9 +24,9 @@ class Label:
 
     self.set_label_format()
     self.set_gap_detection()
-    self.set_thermal_mode(0)
     self.set_resolution(11)
-    self.set_temperature(9)
+    self.set_thermal_mode(settings.THERMAL_MODE)
+    self.set_temperature(settings.TEMPERATURE)
     self.set_print_speed('D')
 
   def send_raw(self, *parts, **opts):
