@@ -21,4 +21,4 @@ def print_badge(value):
     copies = value.get('copies', 1)
     badge    = Badge(xid, name, company, city, copies)
     envelope = Envelope(xid, name, company, city, 1)
-    return badge, envelope;
+    return 'ok';
