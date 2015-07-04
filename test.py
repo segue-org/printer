@@ -1,3 +1,4 @@
+import settings
 import sys
 from lib.label import Label
 from lib.badge import Badge
