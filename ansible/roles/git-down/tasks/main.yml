@@ -1,0 +1,17 @@
+---
+
+- apt: pkg=git
+       state=installed
+
+- name: creates application directory
+  file: path={{ app_path }}
+        owner=segue
+        mode=0777
+        state=directory
+  tags: folders
+
+- git: repo={{ git_repo }}
+       dest={{ app_path }}
+       version={{ git_branch }}
+       update=yes
+  tags: git

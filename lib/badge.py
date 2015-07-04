@@ -1,7 +1,7 @@
 from lib.label import Label
 
 class Badge:
-  def __init__(self, xid, name, company, city):
+  def __init__(self, xid, name, company, city, copies=1):
     self.label = Label()
 
     self.barcode(xid)
@@ -11,7 +11,7 @@ class Badge:
     self.company(company)
     self.city(city)
 
-    self.label.close()
+    self.label.close(copies)
 
   def barcode(self, xid):
     prefix, number = xid.split('-')

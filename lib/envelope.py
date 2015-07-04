@@ -3,7 +3,7 @@ import textwrap
 from lib.label import Label
 
 class Envelope:
-  def __init__(self, xid, name, company, city):
+  def __init__(self, xid, name, company, city, copies=1):
     self.label = Label()
 
     self.barcode(xid)
@@ -11,7 +11,7 @@ class Envelope:
     self.name(name)
     self.company(company)
 
-    self.label.close()
+    self.label.close(copies)
 
   def barcode(self, xid):
     prefix, number = xid.split('-')

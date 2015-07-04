@@ -9,4 +9,8 @@
   sudo: True
   accelerate: True
   roles:
+    - git-down
     - printer
+
+  vars_files:
+    - secret/venue.yml
