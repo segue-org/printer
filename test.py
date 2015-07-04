@@ -11,7 +11,9 @@ if __name__ == "__main__":
     'Santo Antonio de Porto Alegre'
   ]
 
+  device = sys.argv[2]
+
   if sys.argv[1] == 'badge':
-    Badge(*data)
+    Badge(*data, device=device)
   elif sys.argv[1] == 'env':
-    Envelope(*data)
+    Envelope(*data, device=device)

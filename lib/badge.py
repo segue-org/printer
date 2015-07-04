@@ -1,8 +1,9 @@
+import settings
 from lib.label import Label
 
 class Badge:
-  def __init__(self, xid, name, company, city, copies=1):
-    self.label = Label()
+  def __init__(self, xid, name, company, city, copies=1, device=settings.DEVICE):
+    self.label = Label(device=device)
 
     self.barcode(xid)
     self.xid(xid)
