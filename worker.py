@@ -2,14 +2,18 @@ from lib.badge import Badge
 from lib.envelope import Envelope
 
 PREFIXES = {
-    'speaker':           'P',
-    'proponent':         'N',
-    'normal':            'N',
-    'promocode':         'N',
-    'student':           'S',
-    'caravan':           'N',
-    'caravan-leader':    'N',
-    'proponent-student': 'S'
+ 'business':          'N',
+ 'caravan':           'N',
+ 'caravan-leader':    'N',
+ 'foreigner':         'N',
+ 'foreigner-student': 'S',
+ 'government':        'E',
+ 'normal':            'N',
+ 'promocode':         'N',
+ 'proponent':         'N',
+ 'proponent-student': 'S',
+ 'speaker':           'P',
+ 'student':           'S'
 }
 
 def print_badge(value):
