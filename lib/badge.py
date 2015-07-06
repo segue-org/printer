@@ -2,11 +2,11 @@ import settings
 from lib.label import Label
 
 class Badge:
-  def __init__(self, xid, name, company, city, copies=1, device=settings.DEVICE):
+  def __init__(self, prefix, xid, name, company, city, copies=1, device=settings.DEVICE):
     self.label = Label(device=device)
 
-    self.barcode(xid)
-    self.xid(xid)
+    self.barcode(prefix, xid)
+    self.xid(prefix, xid)
     self.name(name)
     self.line()
     self.company(company)
@@ -14,14 +14,11 @@ class Badge:
 
     self.label.close(copies)
 
-  def barcode(self, xid):
-    prefix, number = xid.split('-')
-    self.label.code(int(number), 280, 200, source=prefix, ori=3, size=4, height=30)
+  def barcode(self, prefix, xid):
+    self.label.code(int(xid), 280, 200, source=prefix, ori=3, size=4, height=30)
 
-  def xid(self, xid):
-    prefix, number = xid.split('-')
-    prefix = prefix[0].upper()
-    output = "-".join([prefix,number])
+  def xid(self, prefix, xid):
+    output = "{}-{}".format(prefix.upper(), xid)
     self.label.text(output, 190, 205, size=1)
 
   def line(self):
