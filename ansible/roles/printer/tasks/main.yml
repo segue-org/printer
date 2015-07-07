@@ -13,3 +13,12 @@
 - name: creates configuration file for printer
   template: src=settings.py.j2
             dest={{ app_path }}/settings.py
+
+- name: creates init.d script for printer-service
+  template: src=service.j2
+            dest=/etc/init.d/printer-service
+
+- file: path=/etc/init.d/printer-service
+        owner=root
+        mode=0755
+        state=file
