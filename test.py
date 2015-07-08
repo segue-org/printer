@@ -8,7 +8,7 @@ if __name__ == "__main__":
   data = [
     'P'
     '512',
-    'Epamindas Silva Silveira Paes Lima',
+    'Epaminondas Silva Silveira Paes Lima',
     'ThoughtWorks',
     'Santo Antonio de Porto Alegre'
   ]
