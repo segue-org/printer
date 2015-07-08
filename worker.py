@@ -10,5 +10,6 @@ def print_badge(value):
     copies = value.get('copies', 1)
 
     badge    = Badge(prefix, xid, name, company, city, copies)
-    envelope = Envelope(prefix, xid, name, company, city, 1)
+    if prefix != "VVV":
+        envelope = Envelope(prefix, xid, name, company, city, 1)
     return 'ok';
